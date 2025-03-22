@@ -6,7 +6,7 @@ class SearchSelector:
     Handles search algorithm selection.
     """
 
-    @staticmethod
+    @staticmethod #Call the method directly without creating an instance
     def get_search_algorithm(method, graph):
         """
         Returns an instance of the requested search algorithm.

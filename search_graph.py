@@ -6,7 +6,7 @@ class SearchGraph:
 
     def __init__(self):
         """Initializes an empty graph structure."""
-        self.adjacency_list = {}  # Adjacency list: {node: [(neighbor, cost), ...]}
+        self.adjacency_list = {}  # Adjacency list: {node: [(neighbor, cost), (neightbor, cost),...]} useful for other search methods not dfs
         self.node_coordinates = {}  # Stores node positions: {node: (x, y)}
         self.origin = None  # The start node
         self.destinations = set()  # Set of goal nodes

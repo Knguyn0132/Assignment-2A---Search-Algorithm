@@ -3,7 +3,7 @@ from search_graph import SearchGraph
 from search_selector import SearchSelector
 
 def main():
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 3: # alwasy 3 input: name of main, filename and search method
         print("Usage: python search.py <filename> <method>")
         exit(1)
 
