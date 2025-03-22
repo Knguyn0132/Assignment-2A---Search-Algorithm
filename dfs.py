@@ -6,18 +6,12 @@ class DFS(SearchAlgorithm):
     """
 
     def __init__(self, graph):
-        super().__init__(graph)  # Call the parent class constructor
+        super().__init__(graph)
 
     def search(self, start, goals):
-        """
-        Perform Depth-First Search.
-        :param start: The starting node.
-        :param goals: A set of goal nodes.
-        :return: (goal_node, num_nodes_expanded, path_to_goal)
-        """
-        stack = [(start, [start])]  # Stack stores (current node, path taken)
+        stack = [(start, [start])]
         visited = set()
-        nodes_expanded = 0  # Keep track of expanded nodes
+        nodes_expanded = 0
 
         while stack:
             node, path = stack.pop()
@@ -27,10 +21,10 @@ class DFS(SearchAlgorithm):
             visited.add(node)
             nodes_expanded += 1
 
-            if node in goals:  # Goal reached
+            if node in goals:
                 return node, nodes_expanded, path
 
-            for neighbor, _ in sorted(self.graph.graph.get(node, []), reverse=True):
+            for neighbor, _ in sorted(self.graph.adjacency_list.get(node, []), reverse=True):
                 stack.append((neighbor, path + [neighbor]))
 
         return None, nodes_expanded, []  # No solution found

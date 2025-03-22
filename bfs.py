@@ -10,15 +10,9 @@ class BFS(SearchAlgorithm):
         super().__init__(graph)
 
     def search(self, start, goals):
-        """
-        Perform Breadth-First Search.
-        :param start: The starting node.
-        :param goals: A set of goal nodes.
-        :return: (goal_node, num_nodes_expanded, path_to_goal)
-        """
-        queue = deque([(start, [start])])  # Queue stores (current node, path taken)
+        queue = deque([(start, [start])])
         visited = set()
-        nodes_expanded = 0  # Track expanded nodes
+        nodes_expanded = 0
 
         while queue:
             node, path = queue.popleft()
@@ -28,10 +22,10 @@ class BFS(SearchAlgorithm):
             visited.add(node)
             nodes_expanded += 1
 
-            if node in goals:  # Goal reached
+            if node in goals:
                 return node, nodes_expanded, path
 
-            for neighbor, _ in self.graph.graph.get(node, []):
+            for neighbor, _ in self.graph.adjacency_list.get(node, []):
                 queue.append((neighbor, path + [neighbor]))
 
         return None, nodes_expanded, []  # No solution found

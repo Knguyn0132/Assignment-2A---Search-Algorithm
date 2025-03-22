@@ -1,4 +1,4 @@
-class Graph:
+class SearchGraph:
     """
     A class to represent a graph for the Route Finding Problem.
     It loads nodes, edges, origin, and destinations from a structured text file.
@@ -6,7 +6,7 @@ class Graph:
 
     def __init__(self):
         """Initializes an empty graph structure."""
-        self.graph = {}  # Adjacency list: {node: [(neighbor, cost), ...]}
+        self.adjacency_list = {}  # Adjacency list: {node: [(neighbor, cost), ...]}
         self.node_coordinates = {}  # Stores node positions: {node: (x, y)}
         self.origin = None  # The start node
         self.destinations = set()  # Set of goal nodes
@@ -53,14 +53,12 @@ class Graph:
     def parse_nodes(self, line):
         """Parses node coordinates and stores them in a dictionary."""
         try:
-            # Ensure the line contains a node ID and coordinates
             if ":" not in line:
                 return  # Skip invalid lines
 
             node_id, coords = line.split(":")
             node_id = int(node_id.strip())  # Convert node ID to integer
 
-            # Ensure coordinates are correctly formatted
             coords = coords.strip().replace("(", "").replace(")", "")
             x, y = map(int, coords.split(","))  # Extract (x, y) as integers
 
@@ -78,13 +76,12 @@ class Graph:
             cost = int(cost.strip())  # Convert cost to integer
             node_a, node_b = map(int, edge_data.strip("()").split(","))  # Extract edge nodes
 
-            # Ensure both nodes exist in the graph
-            if node_a not in self.graph:
-                self.graph[node_a] = []
-            if node_b not in self.graph:
-                self.graph[node_b] = []
+            if node_a not in self.adjacency_list:
+                self.adjacency_list[node_a] = []
+            if node_b not in self.adjacency_list:
+                self.adjacency_list[node_b] = []
 
-            self.graph[node_a].append((node_b, cost))
+            self.adjacency_list[node_a].append((node_b, cost))
         except ValueError:
             print(f"Warning: Skipping invalid edge line: {line}")
 
@@ -104,9 +101,7 @@ class Graph:
 
     def display(self):
         """Prints the graph details for debugging."""
-        print("Graph (Adjacency List):", self.graph)
+        print("Graph (Adjacency List):", self.adjacency_list)
         print("Node Coordinates:", self.node_coordinates)
         print("Origin:", self.origin)
         print("Destinations:", self.destinations)
-
-

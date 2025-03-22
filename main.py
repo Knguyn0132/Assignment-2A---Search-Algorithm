@@ -1,5 +1,5 @@
 import sys
-from graph import Graph
+from search_graph import SearchGraph
 from search_selector import SearchSelector
 
 def main():
@@ -11,7 +11,7 @@ def main():
     method = sys.argv[2].upper()
 
     # Load the graph
-    graph = Graph()
+    graph = SearchGraph()
     graph.load_from_file(filename)
 
     # Get the correct search algorithm instance
