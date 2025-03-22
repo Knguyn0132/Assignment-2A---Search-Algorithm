@@ -1,4 +1,5 @@
 from dfs import DFS
+from bfs import BFS
 
 class SearchSelector:
     """
@@ -15,5 +16,7 @@ class SearchSelector:
         """
         if method == "DFS":
             return DFS(graph)
+        elif method == "BFS":
+            return BFS(graph)
         else:
             raise ValueError(f"Error: Unknown search method '{method}'")
