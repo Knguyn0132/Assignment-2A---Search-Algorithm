@@ -1,6 +1,6 @@
 from dfs import DFS
 from bfs import BFS
-
+from gbfs import GBFS
 class SearchSelector:
     """
     Handles search algorithm selection.
@@ -18,5 +18,7 @@ class SearchSelector:
             return DFS(graph)
         elif method == "BFS":
             return BFS(graph)
+        elif method == "GBFS":
+            return GBFS(graph)
         else:
             raise ValueError(f"Error: Unknown search method '{method}'")
