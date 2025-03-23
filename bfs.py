@@ -10,7 +10,7 @@ class BFS(SearchAlgorithm):
         super().__init__(graph)
 
     def search(self, start, goals):
-        queue = deque([(start, [start])])
+        queue = deque([(start, [start])]) #use queue instead of stack, deque is better than list for popping in front
         visited = set()
         nodes_expanded = 0
 
@@ -26,6 +26,7 @@ class BFS(SearchAlgorithm):
                 return node, nodes_expanded, path
 
             for neighbor, _ in self.graph.adjacency_list.get(node, []):
-                queue.append((neighbor, path + [neighbor]))
+                queue.append((neighbor, path + [neighbor])) #doesn't matter the order of what node is being added to the queue first it will discover all anyway 
+                                                            #E.g: D and E or E and D
 
         return None, nodes_expanded, []  # No solution found
