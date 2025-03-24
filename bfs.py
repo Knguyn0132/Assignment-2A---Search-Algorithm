@@ -2,9 +2,6 @@ from search_algorithm import SearchAlgorithm
 from collections import deque
 
 class BFS(SearchAlgorithm):
-    """
-    Implements Breadth-First Search.
-    """
 
     def __init__(self, graph):
         super().__init__(graph)
