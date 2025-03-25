@@ -17,7 +17,7 @@ class GBFS(SearchAlgorithm):
 
         :param start: Starting node ID
         :param goals: Set of goal node IDs
-        :return: (goal_reached, nodes_expanded, path)
+        :return: (goal_reached, nodes_expanded, path)   
         """
         # Priority queue with (cost, node, path)
         open_list = [(0, start, [start])]  # Start with cost 0
