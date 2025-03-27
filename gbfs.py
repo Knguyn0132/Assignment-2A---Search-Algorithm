@@ -25,7 +25,7 @@ class GBFS(SearchAlgorithm):
         x1, y1 = self.graph.node_coordinates[node]
         x2, y2 = self.graph.node_coordinates[goal]
 
-        # Calculate Euclidean distance
+        # Return the actual Euclidean distance (not squared)
         return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
 
     def get_best_goal_heuristic(self, node, goals):
@@ -36,7 +36,7 @@ class GBFS(SearchAlgorithm):
         :param goals: Set of goal node IDs
         :return: Minimum heuristic distance to any goal
         """
-        return min(self.heuristic(node, goal) for goal in goals)
+        return min((self.heuristic(node, goal), goal) for goal in goals)
 
     def search(self, start, goals):
         """
@@ -44,35 +44,35 @@ class GBFS(SearchAlgorithm):
 
         :param start: Starting node ID
         :param goals: Set of goal node IDs
-        :return: (goal_reached, nodes_expanded, path)   
+        :return: (goal_reached, nodes_expanded, path)
         """
         # Track insertion order to resolve tie-breaks
         insertion_counter = 0
         # Initialize the priority queue with (heuristic_value, node, path)
         # Priority queue with (Using heuristic_value as priority (lower values first), node_value, insertion_order, node, path)
         open_list = [(self.get_best_goal_heuristic(start, goals), start, insertion_counter, start, [start])]
-        heapq.heapify(open_list)
+        # heapq.heapify(open_list)
         closed_set = set()  # Set of visited nodes
         nodes_expanded = 0
 
         while open_list:
             # Pop the node with the smallest heuristic value, smallest node value, and earliest insertion
-            _, current, _, current_node, path = heapq.heappop(open_list)
+            h, node_value, insertion_order, current_node, path = heapq.heappop(open_list)
 
             # If we've already visited this node, skip it
-            if current in closed_set:
+            if current_node in closed_set:
                 continue
 
             # Mark as visited and count as expanded
-            closed_set.add(current)
+            closed_set.add(current_node)
             nodes_expanded += 1
 
             # Check if we've reached a goal
-            if current in goals:
-                return current, nodes_expanded, path
+            if current_node in goals:
+                return current_node, nodes_expanded, path
 
             # Explore neighbors
-            for neighbor, _ in self.graph.adjacency_list.get(current, []):
+            for neighbor, _ in self.graph.adjacency_list.get(current_node, []):
                 if neighbor not in closed_set:
                     # Increment insertion counter for stable tie-breaking
                     insertion_counter += 1
