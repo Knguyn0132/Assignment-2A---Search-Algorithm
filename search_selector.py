@@ -4,7 +4,7 @@ from gbfs import GBFS
 
 from astar import AStar
 
-from cus1 import UCS
+from ucs import UCS
 
 class SearchSelector:
     """
@@ -25,10 +25,8 @@ class SearchSelector:
             return BFS(graph)
         elif method == "GBFS":
             return GBFS(graph)
-
         elif method == "A*":
             return AStar(graph)
-
         elif method == "UCS":
             return UCS(graph)
 
