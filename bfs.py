@@ -22,7 +22,7 @@ class BFS(SearchAlgorithm):
             if node in goals:
                 return node, nodes_expanded, path
 
-            for neighbor, _ in self.graph.adjacency_list.get(node, []):
+            for neighbor, _ in sorted(self.graph.adjacency_list.get(node, [])):
                 queue.append((neighbor, path + [neighbor])) #doesn't matter the order of what node is being added to the queue first it will discover all anyway 
                                                             #E.g: D and E or E and D
 
