@@ -21,11 +21,11 @@ class UCS(SearchAlgorithm):
         # Use a counter to break ties in chronological order when costs are equal
         counter = 0
 
-        # Priority queue to store (cost, insertion_order, node_id, node, path)
+        # Priority queue to store (cost, node_id, insertion_order, path)
         # - cost: primary sort criterion
-        # - insertion_order: used to maintain chronological order when costs are equal
-        # - node_id: used to break ties by node ID when costs and insertion orders are equal
-        frontier = [(0, counter, start, [start])]
+        # - node_id: secondary sort criterion (for tie-breaking by node ID)
+        # - insertion_order: tertiary criterion to maintain chronological order when both costs and IDs are equal
+        frontier = [(0, start, counter, [start])]
         counter += 1
 
         # Set to keep track of explored nodes to avoid revisiting
@@ -36,9 +36,9 @@ class UCS(SearchAlgorithm):
 
         while frontier:
             # Get the node with the lowest cost (primary criterion)
-            # If costs are equal, the tie is broken by insertion order (chronological)
-            # If insertion order is equal, the tie is broken by node ID (ascending)
-            current_cost, _, current_node, current_path = heapq.heappop(frontier)
+            # If costs are equal, the tie is broken by node ID (ascending)
+            # If node IDs are equal, the tie is broken by insertion order (chronological)
+            current_cost, current_node, _, current_path = heapq.heappop(frontier)
 
             # Skip if we've already explored this node
             if current_node in explored:
@@ -68,9 +68,10 @@ class UCS(SearchAlgorithm):
                     new_cost = current_cost + edge_cost
                     new_path = current_path + [neighbor]
 
-                    # Add to frontier with increasing counter to maintain chronological order
-                    # when costs are equal (NOTE 2)
-                    heapq.heappush(frontier, (new_cost, counter, neighbor, new_path))
+                    # Add to frontier with node ID as secondary criterion for tie-breaking
+                    # This ensures that when costs are equal, nodes with smaller IDs are expanded first
+                    # Counter is used as the tertiary criterion for chronological ordering
+                    heapq.heappush(frontier, (new_cost, neighbor, counter, new_path))
                     counter += 1
 
         # No path found

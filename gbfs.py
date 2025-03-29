@@ -51,7 +51,7 @@ class GBFS(SearchAlgorithm):
         # Initialize the priority queue with (heuristic_value, node, path)
         # Priority queue with (Using heuristic_value as priority (lower values first), node_value, insertion_order, node, path)
         open_list = [(self.get_best_goal_heuristic(start, goals), start, insertion_counter, start, [start])]
-        # heapq.heapify(open_list)
+        heapq.heapify(open_list)
         closed_set = set()  # Set of visited nodes
         nodes_expanded = 0
 
