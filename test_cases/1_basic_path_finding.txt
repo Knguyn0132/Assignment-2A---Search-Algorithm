@@ -1,3 +1,7 @@
+# Test Case 1: Basic Pathfinding Test
+# Simple graph with a clear path from node 1 to 5.
+# All search methods should successfully find the path: 1 → 2 → 3 → 4 → 5.
+
 Nodes:
 1: (0,0)
 2: (1,0)
@@ -16,3 +20,4 @@ Origin:
 
 Destinations:
 5
+
