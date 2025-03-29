@@ -104,3 +104,4 @@ class AStar(SearchAlgorithm):
         
         # No path found
         return None, nodes_expanded, []
+        #fixed
