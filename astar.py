@@ -1,31 +1,34 @@
 import heapq
 import math
+from search_algorithm import SearchAlgorithm
 
-class AStar:
-    def __init__(self, nodes, edges):
+class AStar(SearchAlgorithm):
+    def __init__(self, graph):
         """
-        Initialize the A* search with nodes and edges.
+        Initialize the A* search with a graph.
         
-        :param nodes: Dictionary mapping node ID to (x,y) coordinates
-        :param edges: Dictionary mapping (from_node, to_node) to edge cost
+        :param graph: The SearchGraph object containing nodes and edges
         """
-        self.nodes = nodes
-        self.edges = edges
+        super().__init__(graph)
+        self.nodes = graph.node_coordinates
         
-        # Build adjacency list for easier neighbor access
+        # Build adjacency list and edges dictionary
+        self.edges = {}
         self.adjacency_list = {}
-        for (from_node, to_node), cost in edges.items():
+        
+        for from_node, neighbors in graph.adjacency_list.items():
             if from_node not in self.adjacency_list:
                 self.adjacency_list[from_node] = []
-            self.adjacency_list[from_node].append((to_node, cost))
             
-            # Note: We don't add the reverse direction since this is a directed graph
+            for to_node, cost in neighbors:
+                self.adjacency_list[from_node].append((to_node, cost))
+                self.edges[(from_node, to_node)] = cost
     
     def euclidean_distance(self, node1, node2):
         """
-        Calculate Manhattan distance between two nodes using their coordinates.
+        Calculate Euclidean distance between two nodes using their coordinates.
         """
-        #this function used to calculate the heuristic value
+        # This function is used to calculate the heuristic value
         x1, y1 = self.nodes[node1]
         x2, y2 = self.nodes[node2]
         return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
@@ -36,14 +39,13 @@ class AStar:
         
         :param start: Starting node ID
         :param goals: Set or list of goal node IDs
-        :return: (goal_reached, nodes_expanded, path, cost)
+        :return: (goal_reached, nodes_expanded, path)
         """
         # Convert goals to set for faster lookup
         goals = set(goals)
         
         # Select closest goal for heuristic calculation
         goal = min(goals, key=lambda g: self.euclidean_distance(start, g))
-        
         
         # Track costs from start to each node
         g_scores = {start: 0}
@@ -70,7 +72,7 @@ class AStar:
             
             # Check if we've reached a goal
             if current in goals:
-                return current, nodes_expanded, path, g_scores[current]
+                return current, nodes_expanded, path
             
             # Process all neighbors
             neighbors = self.adjacency_list.get(current, [])
@@ -91,7 +93,4 @@ class AStar:
                     heapq.heappush(open_list, (f_score, neighbor, new_path))
         
         # No path found
-        return None, nodes_expanded, [], float('inf')
-    # all good
-
-
+        return None, nodes_expanded, []
