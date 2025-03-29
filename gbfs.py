@@ -36,7 +36,7 @@ class GBFS(SearchAlgorithm):
         :param goals: Set of goal node IDs
         :return: Minimum heuristic distance to any goal
         """
-        return min((self.heuristic(node, goal), goal) for goal in goals)
+        return min(self.heuristic(node, goal) for goal in goals)
 
     def search(self, start, goals):
         """
