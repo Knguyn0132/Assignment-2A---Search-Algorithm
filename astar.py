@@ -92,5 +92,6 @@ class AStar:
         
         # No path found
         return None, nodes_expanded, [], float('inf')
+    # all good
 
 
