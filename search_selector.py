@@ -2,6 +2,7 @@ from dfs import DFS
 from bfs import BFS
 from gbfs import GBFS
 from astar import AStar
+from cus2 import BidirectionalSearch
 class SearchSelector:
     """
     Handles search algorithm selection.
@@ -23,6 +24,7 @@ class SearchSelector:
             return GBFS(graph)
         elif method == "A*":
             return AStar(graph)
-            
+        elif method == "Bidirectional":
+            return BidirectionalSearch(graph)    
         else:
             raise ValueError(f"Error: Unknown search method '{method}'")
