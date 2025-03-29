@@ -50,14 +50,14 @@ class GBFS(SearchAlgorithm):
         insertion_counter = 0
         # Initialize the priority queue with (heuristic_value, node, path)
         # Priority queue with (Using heuristic_value as priority (lower values first), node_value, insertion_order, node, path)
-        open_list = [(self.get_best_goal_heuristic(start, goals), start, insertion_counter, start, [start])]
+        open_list = [(self.get_best_goal_heuristic(start, goals), start, insertion_counter, [start])]
         heapq.heapify(open_list)
         closed_set = set()  # Set of visited nodes
         nodes_expanded = 0
 
         while open_list:
             # Pop the node with the smallest heuristic value, smallest node value, and earliest insertion
-            h, node_value, insertion_order, current_node, path = heapq.heappop(open_list)
+            h, current_node, insertion_order, path = heapq.heappop(open_list)
 
             # If we've already visited this node, skip it
             if current_node in closed_set:
@@ -83,7 +83,6 @@ class GBFS(SearchAlgorithm):
                         h,  # Primary sorting by heuristic value
                         neighbor,  # Secondary sorting by node value
                         insertion_counter,  # Tertiary sorting by insertion order
-                        neighbor,  # Actual node value for tracking
                         path + [neighbor]  # Path to the neighbor
                     ))
 
