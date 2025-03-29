@@ -1,4 +1,5 @@
 import heapq
+import math
 
 class AStar:
     def __init__(self, nodes, edges):
@@ -20,13 +21,14 @@ class AStar:
             
             # Note: We don't add the reverse direction since this is a directed graph
     
-    def manhattan_distance(self, node1, node2):
+    def euclidean_distance(self, node1, node2):
         """
         Calculate Manhattan distance between two nodes using their coordinates.
         """
+        #this function used to calculate the heuristic value
         x1, y1 = self.nodes[node1]
         x2, y2 = self.nodes[node2]
-        return abs(x1 - x2) + abs(y1 - y2)
+        return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
     
     def search(self, start, goals):
         """
@@ -40,13 +42,14 @@ class AStar:
         goals = set(goals)
         
         # Select closest goal for heuristic calculation
-        goal = min(goals, key=lambda g: self.manhattan_distance(start, g))
+        goal = min(goals, key=lambda g: self.euclidean_distance(start, g))
+        
         
         # Track costs from start to each node
         g_scores = {start: 0}
         
         # Priority queue with (f_score, node_id, path)
-        open_list = [(self.manhattan_distance(start, goal), start, [start])]
+        open_list = [(self.euclidean_distance(start, goal), start, [start])]
         heapq.heapify(open_list)
         
         # Track visited nodes
@@ -81,7 +84,7 @@ class AStar:
                     g_scores[neighbor] = new_g_score
                     
                     # Calculate f_score
-                    f_score = new_g_score + self.manhattan_distance(neighbor, goal)
+                    f_score = new_g_score + self.euclidean_distance(neighbor, goal)
                     
                     # Add to open list
                     new_path = path + [neighbor]
