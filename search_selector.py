@@ -1,11 +1,7 @@
 from dfs import DFS
 from bfs import BFS
 from gbfs import GBFS
-
 from astar import AStar
-
-from cus1 import UCS
-
 class SearchSelector:
     """
     Handles search algorithm selection.
@@ -25,12 +21,8 @@ class SearchSelector:
             return BFS(graph)
         elif method == "GBFS":
             return GBFS(graph)
-
         elif method == "A*":
             return AStar(graph)
-
-        elif method == "UCS":
-            return UCS(graph)
-
+            
         else:
             raise ValueError(f"Error: Unknown search method '{method}'")
