@@ -1,10 +1,9 @@
 from dfs import DFS
 from bfs import BFS
 from gbfs import GBFS
-
 from astar import AStar
-
 from ucs import UCS
+from weighted_astar import WeightedAStar
 
 class SearchSelector:
     """
@@ -29,6 +28,7 @@ class SearchSelector:
             return AStar(graph)
         elif method == "UCS":
             return UCS(graph)
-
+        elif method == "WEIGHTED_A*":  # Add Weighted A*
+            return WeightedAStar(graph, weight=1.5)  # Adjust weight as needed
         else:
             raise ValueError(f"Error: Unknown search method '{method}'")
