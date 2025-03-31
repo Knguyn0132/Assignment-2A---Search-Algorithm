@@ -1,0 +1,28 @@
+# Test Case 4: BFS and DFS Pitfall Test
+# A 6-node graph where DFS and BFS will take/expand the worst possible path,  
+# UCS, A*, GBFS and Weighted A* will find and expand the optimal shorter path.
+
+Nodes:
+1: (1,0)
+2: (2,2)
+3: (3,4)
+4: (5,1)
+5: (4,5)
+6: (7,0)
+
+Edges:
+# Bad path that BFS and DFS will take
+(1,2): 2
+(2,3): 5
+(3,5): 5
+(5,6): 5
+
+# Shortest path that UCS, A*, and Weighted A* should take
+(1,4): 2
+(4,6): 2
+
+Origin:
+1
+
+Destinations:
+6
