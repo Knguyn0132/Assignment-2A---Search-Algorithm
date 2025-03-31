@@ -1,0 +1,30 @@
+# Test Case 5: Worst-Case UCS and A* Test
+# Mislead UCS and A* into taking an unnecessarily long path because following cheap path.
+# Weighted A* and GBFS will find the optimal route efficiently based on heuristic function.
+
+Nodes:
+1: (0,0)
+2: (2,1)
+3: (1,2)
+4: (11,2)
+5: (2,4)
+6: (11,6)
+7: (9,3)
+8: (1,5)  
+
+Edges:
+(1,2): 1
+(1,3): 2  
+(2,4): 1
+(4,6): 1
+(6,7): 1
+(7,8): 1
+(1,3): 2
+(3,5): 10
+(5,8): 6
+
+Origin:
+1
+
+Destinations:
+8
