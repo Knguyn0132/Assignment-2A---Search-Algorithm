@@ -1,4 +1,4 @@
-# Test Case 4: BFS and DFS Pitfall Test
+# Test Case 4: Worst-Case DFS/BFS Test
 # A 6-node graph where DFS and BFS will take/expand the worst possible path,  
 # UCS, A*, GBFS and Weighted A* will find and expand the optimal shorter path.
 
