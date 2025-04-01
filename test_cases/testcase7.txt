@@ -1,6 +1,6 @@
 # Test Case 7: Multi-goal with a path for one goal that has better heuristic/cost but invalid
 # Ensure that nodes should be able to take another path even heuristic/cost is bigger 
-# Should reach 8 instead of 7
+# Should reach 8 instead of 9 
 
 Nodes: 
 1: (0,0)
@@ -11,6 +11,7 @@ Nodes:
 6: (2,4)
 7: (6,2)
 8: (2,7)
+9: (7,2)
 
 Edges:
 (1,2): 1
@@ -19,7 +20,8 @@ Edges:
 (3,4): 2
 (4,6): 3
 (6,8): 4
-(5,7): 1
+(4,5): 1
+(7,9): 1
 
 Origin:
 1
