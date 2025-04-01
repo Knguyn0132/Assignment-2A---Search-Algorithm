@@ -3,7 +3,7 @@ from bfs import BFS
 from gbfs import GBFS
 from astar import AStar
 from ucs import UCS
-from idastar import IDA  # Import the new IDA* class
+from idastar import IDAStar  # Import the new IDA* class
 
 class SearchSelector:
     """
@@ -29,6 +29,6 @@ class SearchSelector:
         elif method == "UCS":
             return UCS(graph)
         elif method == "IDA*":  # Add Iterative Deepening A*
-            return IDA(graph)
+            return IDAStar(graph)
         else:
             raise ValueError(f"Error: Unknown search method '{method}'")

@@ -1,7 +1,7 @@
 from search_algorithm import SearchAlgorithm
 import math
 
-class IDA(SearchAlgorithm):
+class IDAStar(SearchAlgorithm):
     """
     Iterative Deepening A* (IDA*) search implementation.
     
