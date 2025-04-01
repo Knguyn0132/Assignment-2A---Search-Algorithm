@@ -25,7 +25,7 @@ class GBFS(SearchAlgorithm):
         x1, y1 = self.graph.node_coordinates[node]
         x2, y2 = self.graph.node_coordinates[goal]
 
-        # Return the actual Euclidean distance (not squared)
+        # Return the actual Euclidean distance
         return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
 
     def get_best_goal_heuristic(self, node, goals):
@@ -48,16 +48,16 @@ class GBFS(SearchAlgorithm):
         """
         # Track insertion order to resolve tie-breaks
         insertion_counter = 0
-        # Initialize the priority queue with (heuristic_value, node, path)
-        # Priority queue with (Using heuristic_value as priority (lower values first), node_value, insertion_order, node, path)
-        open_list = [(self.get_best_goal_heuristic(start, goals), start, insertion_counter, [start])]
+
+        # Priority queue: (heuristic_value, insertion_order, node, path)
+        open_list = [(self.get_best_goal_heuristic(start, goals), insertion_counter, start, [start])]
         heapq.heapify(open_list)
         closed_set = set()  # Set of visited nodes
         nodes_expanded = 0
 
         while open_list:
-            # Pop the node with the smallest heuristic value, smallest node value, and earliest insertion
-            h, current_node, insertion_order, path = heapq.heappop(open_list)
+            # Pop the node with the smallest heuristic value, then insertion order, then node ID
+            h, insertion_order, current_node, path = heapq.heappop(open_list)
 
             # If we've already visited this node, skip it
             if current_node in closed_set:
@@ -72,7 +72,7 @@ class GBFS(SearchAlgorithm):
                 return current_node, nodes_expanded, path
 
             # Explore neighbors
-            for neighbor, _ in self.graph.adjacency_list.get(current_node, []):
+            for neighbor, _ in sorted(self.graph.adjacency_list.get(current_node, [])):
                 if neighbor not in closed_set:
                     # Increment insertion counter for stable tie-breaking
                     insertion_counter += 1
@@ -81,8 +81,8 @@ class GBFS(SearchAlgorithm):
                     # Add to open list with path
                     heapq.heappush(open_list, (
                         h,  # Primary sorting by heuristic value
-                        neighbor,  # Secondary sorting by node value
-                        insertion_counter,  # Tertiary sorting by insertion order
+                        insertion_counter,  # Secondary sorting by insertion order (ensures first-added expands first)
+                        neighbor,  # Tertiary sorting by node value (ensures ascending order when all else is equal)
                         path + [neighbor]  # Path to the neighbor
                     ))
 

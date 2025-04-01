@@ -19,14 +19,15 @@ class UCS(SearchAlgorithm):
         :return: (goal_node, num_nodes_expanded, path_to_goal)
         """
         # Use a counter to break ties in chronological order when costs are equal
-        counter = 0
+        insertion_counter = 0
 
-        # Priority queue to store (cost, node_id, insertion_order, path)
-        # - cost: primary sort criterion
-        # - node_id: secondary sort criterion (for tie-breaking by node ID)
-        # - insertion_order: tertiary criterion to maintain chronological order when both costs and IDs are equal
-        frontier = [(0, start, counter, [start])]
-        counter += 1
+        # Priority queue to store (cost, insertion_order, node_id, path)
+        # - cost: primary sort criterion (lowest first)
+        # - insertion_order: secondary sort criterion (to maintain chronological order)
+        # - node_id: tertiary criterion (ascending node ID when cost & insertion order are equal)
+        frontier = [(0, insertion_counter, start, [start])]
+        heapq.heapify(frontier)
+        insertion_counter += 1
 
         # Set to keep track of explored nodes to avoid revisiting
         explored = set()
@@ -36,9 +37,9 @@ class UCS(SearchAlgorithm):
 
         while frontier:
             # Get the node with the lowest cost (primary criterion)
-            # If costs are equal, the tie is broken by node ID (ascending)
-            # If node IDs are equal, the tie is broken by insertion order (chronological)
-            current_cost, current_node, _, current_path = heapq.heappop(frontier)
+            # If costs are equal, the tie is broken by insertion order (FIFO)
+            # If insertion order is also equal, the tie is broken by node ID (ascending)
+            current_cost, _, current_node, current_path = heapq.heappop(frontier)
 
             # Skip if we've already explored this node
             if current_node in explored:
@@ -54,25 +55,19 @@ class UCS(SearchAlgorithm):
 
             # Get all neighbors and their costs, then sort by node ID to ensure
             # ascending order processing (NOTE 2)
-            neighbors = []
-            if current_node in self.graph.adjacency_list:
-                neighbors = self.graph.adjacency_list[current_node]
+            neighbors = self.graph.adjacency_list.get(current_node, [])
 
             # Process neighbors in ascending node ID order when adding to frontier
-            # This ensures that when costs are equal, lower IDs are expanded first
             for neighbor, edge_cost in sorted(neighbors, key=lambda x: x[0]):
-                # Skip already explored nodes
                 if neighbor not in explored:
-                    # Check if this node is already in the frontier with a higher cost
-                    in_frontier_with_higher_cost = False
+                    # Compute new cost
                     new_cost = current_cost + edge_cost
                     new_path = current_path + [neighbor]
 
-                    # Add to frontier with node ID as secondary criterion for tie-breaking
-                    # This ensures that when costs are equal, nodes with smaller IDs are expanded first
-                    # Counter is used as the tertiary criterion for chronological ordering
-                    heapq.heappush(frontier, (new_cost, neighbor, counter, new_path))
-                    counter += 1
+                    # Add to frontier with cost as primary sort key, insertion order as secondary,
+                    # and node ID as tertiary for correct tie-breaking
+                    heapq.heappush(frontier, (new_cost, insertion_counter, neighbor, new_path))
+                    insertion_counter += 1  # Increment counter for stable tie-breaking
 
         # No path found
         return None, nodes_expanded, []
