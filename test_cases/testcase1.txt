@@ -1,23 +1,28 @@
-# Test Case 1: Basic Pathfinding Test
-# Simple graph with a clear path from node 1 to 5.
-# All search methods should successfully find the path: 1 → 2 → 3 → 4 → 5.
+# Test Case 1: Basic Path Finding
+# Tests basic pathfinding with multiple destination options.
+# Expected behavior: All algorithms should find a path to either node 5 or node 4,
+# with algorithms choosing the destination based on their search strategy.
 
 Nodes:
-1: (0,0)
-2: (1,0)
-3: (2,0)
-4: (3,0)
-5: (4,0)
+1: (1,1)
+2: (2,3)
+3: (4,2)
+4: (6,1)
+5: (5,4)
+6: (3,5)
 
 Edges:
-(1,2): 1
-(2,3): 1
-(3,4): 1
-(4,5): 1
+(2,1): 2
+(1,3): 3
+(2,3): 2
+(3,4): 2
+(3,5): 3
+(5,6): 2
+(6,2): 3
 
 Origin:
-1
+2
 
 Destinations:
-5
+4; 6
 

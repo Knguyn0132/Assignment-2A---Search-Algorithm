@@ -1,5 +1,6 @@
 # Test Case 3: No Solution.
-# Since node 5 is completely disconnected, all searches should return "No Solution Found."
+# Node 5 is completely disconnected.
+# Expected behavior: All algorithms should report "No solution found"
 
 Nodes:
 1: (0,0)

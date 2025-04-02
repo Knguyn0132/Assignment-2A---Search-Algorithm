@@ -1,0 +1,26 @@
+# Test Case 10: Circular Routes
+# Tests handling of cycles in the graph.
+# Expected behavior: 
+# - All algorithms should successfully find the path to node 5 without getting stuck in cycles
+# - DFS will need to track visited nodes to avoid infinite loops
+# - A* and UCS should find the optimal path even with cycles present
+
+Nodes:
+1: (0,0)
+2: (1,0)
+3: (1,1)
+4: (0,1)
+5: (2,1)
+
+Edges:
+(1,2): 1
+(2,3): 1
+(3,4): 1
+(4,1): 1
+(3,5): 2
+
+Origin:
+1
+
+Destinations:
+5

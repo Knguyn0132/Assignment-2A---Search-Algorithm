@@ -1,25 +1,35 @@
-# Test Case 2: Multiple Goal Test
-# A graph with two goal nodes (5 and 6), where the nearest goal is not the cheapest one.
-# The algorithm should stop at the nearest or lowest-cost goal depending on its strategy.
+# Test Case 2: Single Destination
+# Tests search with only one possible destination.
+# Expected behavior: All algorithms should find a path to node 5.
+# DFS and BFS may find different paths than the informed methods.
+# A* and UCS should find the optimal (lowest cost) path.
 
 Nodes:
-1: (0,0)
-2: (1,1)
-3: (2,0)
-4: (3,1)
-5: (4,0)
-6: (3,3)
+1: (4,1)
+2: (2,2)
+3: (4,4)
+4: (6,3)
+5: (5,6)
+6: (7,5)
 
 Edges:
-(1,2): 1
-(1,3): 4
-(2,4): 2
-(3,4): 1
-(4,5): 3
-(4,6): 2
+(2,1): 4
+(3,1): 5
+(1,3): 5
+(2,3): 4
+(3,2): 5
+(4,1): 6
+(1,4): 6
+(4,3): 5
+(3,5): 6
+(5,3): 6
+(4,5): 7
+(5,4): 8
+(6,3): 7
+(3,6): 7
 
 Origin:
-1
+2
 
 Destinations:
-5; 6
+5
