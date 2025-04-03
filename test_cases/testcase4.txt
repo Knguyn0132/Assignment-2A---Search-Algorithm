@@ -1,15 +1,15 @@
 # Test Case 4: Worst-Case DFS and BFS Test
 # A 6-node graph where DFS and BFS will take/expand the worst possible path,  
-# UCS, A*, GBFS and  IDA* will find and expand the optimal shorter path.
+# UCS, A*, GBFS and Fringe will find and expand the optimal shorter path.
 
 Nodes:
 1: (0,0)
-2: (9,1)
-3: (8,2)
-4: (9,4)
-5: (7,4)
-6: (2,2)
-7: (1,4)
+2: (5,0)
+3: (10,0)
+4: (15,0)
+5: (10,5)
+6: (0,2)
+7: (0,5)
 
 Edges:
 (1,2): 2
