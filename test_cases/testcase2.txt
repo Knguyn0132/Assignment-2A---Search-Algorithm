@@ -1,35 +1,33 @@
-# Test Case 2: Single Destination
-# Tests search with only one possible destination.
-# Expected behavior: All algorithms should find a path to node 5.
-# DFS and BFS may find different paths than the informed methods.
-# A* and UCS should find the optimal (lowest cost) path.
+# Test Case 2: Equal-Cost Paths with Different Heuristics
+# Tests how informed algorithms handle multiple paths with identical costs but different heuristic values
+# Expected behavior: 
+# - All algorithms find path to node 7
+# - Both paths (via node 5 or node 6) have identical total cost of 11
+# - Informed algorithms (A*, GBFS, Fringe) should prefer path through node 6 due to better heuristic
+# - UCS may choose either path as they have equal cost (but will choose node 5 since node ID is smaller)
+# - DFS and BFS will choose based on their exploration order
 
 Nodes:
-1: (4,1)
-2: (2,2)
-3: (4,4)
-4: (6,3)
-5: (5,6)
-6: (7,5)
+1: (0,0)
+2: (0,2)
+3: (2,0)
+4: (2,2)
+5: (5,3)
+6: (3,5)
+7: (4,5)
 
 Edges:
-(2,1): 4
-(3,1): 5
-(1,3): 5
-(2,3): 4
-(3,2): 5
-(4,1): 6
-(1,4): 6
-(4,3): 5
-(3,5): 6
-(5,3): 6
-(4,5): 7
-(5,4): 8
-(6,3): 7
-(3,6): 7
+(1,2): 2
+(1,3): 2
+(2,4): 2
+(3,4): 2
+(4,5): 4
+(4,6): 4
+(6,7): 3
+(5,7): 3
 
 Origin:
-2
+1
 
 Destinations:
-5
+7
