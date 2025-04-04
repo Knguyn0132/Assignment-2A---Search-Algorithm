@@ -1,53 +1,30 @@
-# Test Case 9: Large Graph
-# Tests performance on a larger graph.
-# Expected behavior: 
-# - All algorithms should eventually find a path to node 15
-# - Informed methods (A*, GBFS) should expand fewer nodes than uninformed methods
-# - UCS should find the optimal (lowest cost) path
+# Test Case 9: Misleading Heuristic Trap
+# Tests how heuristic-based algorithms handle misleading geometric shortcuts
+# Expected behavior:
+# - GBFS will be tricked by the heuristic to take a longer, costlier path
+# - Algorithms that consider path costs (UCS, A*, Fringe) will find the optimal path
+# - Demonstrates why pure heuristic-based search can be suboptimal compared to cost-aware methods
 
 Nodes:
-1: (0,0)
-2: (1,0)
-3: (2,0)
-4: (3,0)
-5: (4,0)
-6: (0,1)
-7: (1,1)
-8: (2,1)
-9: (3,1)
-10: (4,1)
-11: (0,2)
-12: (1,2)
-13: (2,2)
-14: (3,2)
-15: (4,2)
+1: (0,0)    
+2: (2,2)
+3: (7,3)
+4: (8,4)
+5: (7,5)
+6: (4,4)
+7: (7,4)
 
 Edges:
-(1,2): 1
-(2,3): 1
-(3,4): 1
-(4,5): 1
-(1,6): 1
-(2,7): 1
-(3,8): 1
-(4,9): 1
-(5,10): 1
-(6,7): 1
-(7,8): 1
-(8,9): 1
-(9,10): 1
-(6,11): 1
-(7,12): 1
-(8,13): 1
-(9,14): 1
-(10,15): 1
-(11,12): 1
-(12,13): 1
-(13,14): 1
-(14,15): 1
+(1,2): 3
+(2,3): 7
+(3,4): 4
+(4,5): 4
+(5,7): 4
+(6,7): 3
+(2,6): 3
 
 Origin:
 1
 
 Destinations:
-15
+7
