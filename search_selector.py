@@ -1,16 +1,18 @@
+# Modification to search_selector.py
 from dfs import DFS
 from bfs import BFS
 from gbfs import GBFS
 from astar import AStar
 from ucs import UCS
-from fringe import Fringe  # Import the new IDA* class
+from fringe import Fringe
+from gmgs import GMGS  # Import the new GMGS class
 
 class SearchSelector:
     """
     Handles search algorithm selection.
     """
 
-    @staticmethod #Call the method directly without creating an instance
+    @staticmethod
     def get_search_algorithm(method, graph):
         """
         Returns an instance of the requested search algorithm.
@@ -24,11 +26,13 @@ class SearchSelector:
             return BFS(graph)
         elif method == "GBFS":
             return GBFS(graph)
-        elif method == "A*":
+        elif method == "AS":
             return AStar(graph)
-        elif method == "UCS":
+        elif method == "CUS1":
             return UCS(graph)
-        elif method == "FRINGE":
+        elif method == "CUS2":
             return Fringe(graph)
+        elif method == "GMGS":
+            return GMGS(graph)
         else:
             raise ValueError(f"Error: Unknown search method '{method}'")
