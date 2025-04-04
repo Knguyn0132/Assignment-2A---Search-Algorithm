@@ -78,7 +78,7 @@ class AStar(SearchAlgorithm):
                 return current, nodes_expanded, path
             
             # Process all neighbors
-            neighbors = self.adjacency_list.get(current, [])
+            neighbors = sorted(self.adjacency_list.get(current, []))
             for neighbor, cost in neighbors:
                 # Calculate new g_score
                 new_g_score = g_scores[current] + cost
