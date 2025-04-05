@@ -1,17 +1,18 @@
-# Test Case 11: Multi-Goal Planning with Dead Ends
-#
-# Tests the behavior of A*-based Multi-Goal Search (ABMGS) in a directed graph with unreachable goals.
+# Test Case 11: Multi-Goal Planning with Path Dependencies
+# Tests the behavior of A*-based Multi-Goal Search (ABMGS) in a directed graph where goal ordering matters.
 #
 # Expected behavior:
 # - ABMGS uses A* to determine the next best goal to visit based on actual path costs
-# - For this directed graph, the algorithm should find a path visiting multiple goals
-# - However, due to the directed nature of edges and sequential decision-making:
-#   * Some goals become unreachable after certain decisions are made
-#   * The algorithm cannot visit all destinations despite their existence in the graph
-#   * No backtracking occurs to reconsider the goal visitation order
-# - Specifically, after visiting goals 7, 6, and 8, goal 9 becomes unreachable because the algorithm can not backtrack to 6 to get to 9
-# - Demonstrates a fundamental limitation of sequential goal selection approaches:
-#   even with optimal pathfinding between individual goals, the overall tour may be suboptimal
+# - The algorithm successfully visits goals 6, 8, and 9 by following path 1→2→4→6→8→6→9
+# - However, goal 7 becomes unreachable because:
+#   * The algorithm initially selects goal 6 as it appears to have the lowest path cost
+#   * Once at goal 6, there's no path back to goal 7 in this directed graph
+#   * The algorithm cannot reconsider its initial decision to prioritize goal 6
+# - Despite allowing backtracking between goals 6 and 8 (via edge 8→6), goal 7 remains unreachable
+# - Demonstrates that even with backtracking capabilities between some nodes, the initial goal
+#   selection can still create situations where certain goals become unreachable
+# - A truly optimal approach would recognize that starting with goal 7 (via path 1→3→5→7)
+#   would allow visiting all four goals in sequence: 7→6→8→6→9
 
 Nodes:
 1: (1,0)
@@ -30,9 +31,10 @@ Edges:
 (2,4): 3
 (3,5): 3
 (4,6): 3
-(5,7): 2
+(5,7): 4
 (7,6): 3
 (6,8): 3
+(8,6): 3
 (6,9): 3
 
 Origin:

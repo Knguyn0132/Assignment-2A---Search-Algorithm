@@ -2,7 +2,7 @@
 # Tests basic pathfinding with multiple destination options.
 # Expected behavior: 
 # - DFS will expand deep into path 1→2→5→8
-# - BFS will expand each level and find a path to node 8
+# - BFS will expand each level and find a path to node 7
 # - Cost-based algorithms (UCS, A*, Fringe) will take path 1→2→5→8 due to lower total cost
 # - GBFS will take path 1→4→7 since it follows the shortest geometric path
 
