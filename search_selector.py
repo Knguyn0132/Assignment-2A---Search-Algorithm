@@ -5,7 +5,7 @@ from gbfs import GBFS
 from astar import AStar
 from ucs import UCS
 from fringe import Fringe
-from gmgs import GMGS  # Import the new GMGS class
+from abmgs import AStar_Based_Multi_Goal_Search  # Import the new GMGS class
 
 class SearchSelector:
     """
@@ -32,7 +32,7 @@ class SearchSelector:
             return UCS(graph)
         elif method == "CUS2":
             return Fringe(graph)
-        elif method == "GMGS":
-            return GMGS(graph)
+        elif method == "ABMGS":
+            return AStar_Based_Multi_Goal_Search(graph)
         else:
             raise ValueError(f"Error: Unknown search method '{method}'")

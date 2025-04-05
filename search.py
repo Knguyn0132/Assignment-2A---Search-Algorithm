@@ -30,7 +30,7 @@ def main():
         print(f"{filename} {method}")
         
         # Special handling for GMGS
-        if method == "GMGS" and hasattr(search_algorithm, 'goals_visited_order'):
+        if method == "ABMGS" and hasattr(search_algorithm, 'goals_visited_order'):
             print(f"Total nodes expanded: {nodes_expanded}")
             print(f"Goals visited in order: {' -> '.join(map(str, search_algorithm.goals_visited_order))}")
             print(f"Complete path: {' -> '.join(map(str, path))}")

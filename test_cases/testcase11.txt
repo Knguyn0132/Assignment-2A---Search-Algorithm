@@ -1,14 +1,17 @@
-# Test Case 11: Greedy Trap Causing Unreachable Goals
+# Test Case 11: Multi-Goal Planning with Dead Ends
 #
-# Tests how greedy multi-goal search can fail when early local decisions block access to future goals.
+# Tests the behavior of A*-based Multi-Goal Search (ABMGS) in a directed graph with unreachable goals.
 #
 # Expected behavior:
-# - Ideally, visiting goals in the order (7 → 6 → 8 → 9) would allow all goals to be reached.
-# - However, the greedy algorithm picks the nearest goal (node 6) first.
-# - After reaching 6 and 8, it cannot backtrack to 7 or 9 due to directed paths and no reverse edges.
-# - Warnings are issued for unvisited goals (7 and 9), and only reachable goals (6 and 8) are included in the final path.
-# - Demonstrates the limitation of greedy nearest-goal-first: locally optimal choices can create dead-ends and prevent full goal coverage.
-# Highlights the need for global planning or lookahead to solve multi-goal problems properly (Travelling salesman problem).
+# - ABMGS uses A* to determine the next best goal to visit based on actual path costs
+# - For this directed graph, the algorithm should find a path visiting multiple goals
+# - However, due to the directed nature of edges and sequential decision-making:
+#   * Some goals become unreachable after certain decisions are made
+#   * The algorithm cannot visit all destinations despite their existence in the graph
+#   * No backtracking occurs to reconsider the goal visitation order
+# - Specifically, after visiting goals 7, 6, and 8, goal 9 becomes unreachable because the algorithm can not backtrack to 6 to get to 9
+# - Demonstrates a fundamental limitation of sequential goal selection approaches:
+#   even with optimal pathfinding between individual goals, the overall tour may be suboptimal
 
 Nodes:
 1: (1,0)
@@ -27,7 +30,7 @@ Edges:
 (2,4): 3
 (3,5): 3
 (4,6): 3
-(5,7): 3
+(5,7): 2
 (7,6): 3
 (6,8): 3
 (6,9): 3
