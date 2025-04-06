@@ -34,7 +34,7 @@ class Fringe(SearchAlgorithm):
         # Convert goals to set for O(1) lookup
         goals = set(goals)
 
-        # If start is already a goal, return immediately
+        # check for special condition: if current is a goal
         if start in goals:
             return start, 1, [start]
 
@@ -51,7 +51,7 @@ class Fringe(SearchAlgorithm):
         heapq.heappush(open_set, (f_limit, 0, counter, start, [start]))
         counter += 1
 
-        # Nodes that exceed current f_limit go here
+        # List to store nodes that exceed f_limit
         later = []
 
         # Track best g-value for each node
