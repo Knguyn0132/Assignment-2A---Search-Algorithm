@@ -14,9 +14,7 @@ class Fringe(SearchAlgorithm):
     def __init__(self, graph):
         """Initialize with a graph"""
         super().__init__(graph)
-        # Debug the graph structure to verify edges
-        # print("Graph structure:", self.graph.adjacency_list)
-
+        
     def heuristic(self, node, goal):
         """Calculate Euclidean distance heuristic between two nodes"""
         if node not in self.graph.node_coordinates or goal not in self.graph.node_coordinates:

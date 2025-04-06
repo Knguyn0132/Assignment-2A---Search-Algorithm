@@ -37,7 +37,7 @@ class AStar(SearchAlgorithm):
         :param goals: Set or list of goal node IDs
         :return: (goal_reached, nodes_expanded, path)
         """
-        # Convert goals to set for faster lookup
+        # Convert goals to set for O(1) lookup
         goals = set(goals)
         
         # Track costs from start to each node
@@ -62,28 +62,25 @@ class AStar(SearchAlgorithm):
             # Pop the node with lowest f_score
             _, _, current, path = heapq.heappop(open_list)
             
-            # If already visited, skip
+            # if the node is visited, skip 
             if current in visited:
                 continue
             
-            # Mark as visited and count as expanded
+            # add current node to visited set and increment nodes expanded
             visited.add(current)
             nodes_expanded += 1
             
-            # Debug: print current node exploration
-            # print(f"Exploring node {current} with path {path}")
-            
-            # Check if we've reached a goal
+            # check for special condition: if current is a goal
             if current in goals:
                 return current, nodes_expanded, path
             
-            # Process all neighbors
+            # get all the neighbors of the current node in the adjacency list
             neighbors = sorted(self.adjacency_list.get(current, []))
             for neighbor, cost in neighbors:
-                # Calculate new g_score
+                # calculate new g_score
                 new_g_score = g_scores[current] + cost
                 
-                # Only consider this path if it's better than any previous one
+                # only consider this path if it's better than any previous one
                 if neighbor not in g_scores or new_g_score < g_scores[neighbor]:
                     # Update g_score
                     g_scores[neighbor] = new_g_score
@@ -93,10 +90,7 @@ class AStar(SearchAlgorithm):
                     
                     # Calculate f_score
                     f_score = new_g_score + h_score
-                    
-                    # Debug: print neighbor evaluation
-                    # print(f"  Neighbor {neighbor}: g={new_g_score}, h={h_score}, f={f_score}")
-                    
+                  
                     # Add to open list with unique entry ID
                     new_path = path + [neighbor]
                     heapq.heappush(open_list, (f_score, entry_id, neighbor, new_path))

@@ -3,7 +3,7 @@ from search_algorithm import SearchAlgorithm
 class DFS(SearchAlgorithm):
 
     def __init__(self, graph):
-        super().__init__(graph)  # Call the parent class constructor
+        super().__init__(graph)  
 
     def search(self, start, goals):
 

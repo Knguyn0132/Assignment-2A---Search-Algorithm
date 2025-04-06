@@ -46,7 +46,7 @@ class GBFS(SearchAlgorithm):
         :param goals: Set of goal node IDs
         :return: (goal_reached, nodes_expanded, path)
         """
-        # Track insertion order to resolve tie-breaks
+        # Counter to track the order in which nodes are added to the priority queue (used for tie-breaking)
         insertion_counter = 0
 
         # Priority queue: (heuristic_value, insertion_order, node, path)
@@ -56,18 +56,18 @@ class GBFS(SearchAlgorithm):
         nodes_expanded = 0
 
         while open_list:
-            # Pop the node with the smallest heuristic value, then insertion order, then node ID
+            # Get the node with the smallest heuristic value from the priority queue
             h, insertion_order, current_node, path = heapq.heappop(open_list)
 
-            # If we've already visited this node, skip it
+            # Continue if the node has already been visited
             if current_node in closed_set:
                 continue
 
-            # Mark as visited and count as expanded
+            # Mark the current node as visited and increment the expanded node counter
             closed_set.add(current_node)
             nodes_expanded += 1
 
-            # Check if we've reached a goal
+            # Return when reach a goal node
             if current_node in goals:
                 return current_node, nodes_expanded, path
 
