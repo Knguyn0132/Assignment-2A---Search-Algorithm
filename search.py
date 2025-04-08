@@ -26,14 +26,15 @@ def main():
     goal, nodes_expanded, path = search_algorithm.search(graph.origin, graph.destinations)
 
     # Print result
+        # Print result
     if goal is not None:
         print(f"{filename} {method}")
         
         # Special handling for GMGS
         if method == "ABMGS" and hasattr(search_algorithm, 'goals_visited_order'):
             print(f"Total nodes expanded: {nodes_expanded}")
-            print(f"Goals visited in order: {' -> '.join(map(str, search_algorithm.goals_visited_order))}")
-            print(f"Complete path: {' -> '.join(map(str, path))}")
+            print(f"Goals visited in order: {str(search_algorithm.goals_visited_order)}")
+            print(f"Complete path: {str(path)}")
             print(f"Total cost: {search_algorithm.total_cost}")
             
             # Display detailed segment information
@@ -46,7 +47,7 @@ def main():
         else:
             # Standard output for regular algorithms
             print(f"{goal} {nodes_expanded}")
-            print(" -> ".join(map(str, path)))
+            print(str(path))
     else:
         print(f"{filename} {method}")
         print("No solution found.")
