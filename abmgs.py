@@ -1,4 +1,3 @@
-# gmgs.py
 import math
 from search_algorithm import SearchAlgorithm
 
