@@ -14,9 +14,6 @@ class GBFS(SearchAlgorithm):
         """
         Calculate the heuristic distance between node and goal using Euclidean distance.
 
-        :param node: Current node ID
-        :param goal: Goal node ID
-        :return: Euclidean distance between the nodes
         """
         if node not in self.graph.node_coordinates or goal not in self.graph.node_coordinates:
             return float('inf')  # Return infinity if coordinates are not available
@@ -31,10 +28,6 @@ class GBFS(SearchAlgorithm):
     def get_best_goal_heuristic(self, node, goals):
         """
         Find the minimum heuristic distance to any goal.
-
-        :param node: Current node ID
-        :param goals: Set of goal node IDs
-        :return: Minimum heuristic distance to any goal
         """
         return min(self.heuristic(node, goal) for goal in goals)
 
@@ -42,9 +35,6 @@ class GBFS(SearchAlgorithm):
         """
         Execute Greedy Best-First Search from start node to any goal node.
 
-        :param start: Starting node ID
-        :param goals: Set of goal node IDs
-        :return: (goal_reached, nodes_expanded, path)
         """
         # Counter to track the order in which nodes are added to the priority queue (used for tie-breaking)
         insertion_counter = 0

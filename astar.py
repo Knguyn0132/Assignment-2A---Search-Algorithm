@@ -6,13 +6,12 @@ class AStar(SearchAlgorithm):
     def __init__(self, graph):
         """
         Initialize the A* search with a graph.
-        
-        :param graph: The SearchGraph object containing nodes and edges
+
         """
         super().__init__(graph)
         self.nodes = graph.node_coordinates
         
-        # Build adjacency list
+        # Create an adjacency list 
         self.adjacency_list = {}
         for from_node, neighbors in graph.adjacency_list.items():
             if from_node not in self.adjacency_list:
@@ -32,10 +31,7 @@ class AStar(SearchAlgorithm):
     def search(self, start, goals):
         """
         Execute A* Search from start node to any goal node.
-        
-        :param start: Starting node ID
-        :param goals: Set or list of goal node IDs
-        :return: (goal_reached, nodes_expanded, path)
+
         """
         # Convert goals to set for O(1) lookup
         goals = set(goals)

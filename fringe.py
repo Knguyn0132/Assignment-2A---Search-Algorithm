@@ -5,8 +5,6 @@ import heapq
 
 class Fringe(SearchAlgorithm):
     """
-    Fringe Search implementation.
-
     Fringe Search is an informed search algorithm that combines attributes of A* and IDA*
     to minimize node expansions while still finding optimal paths.
     """

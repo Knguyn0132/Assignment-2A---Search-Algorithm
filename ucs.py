@@ -3,28 +3,14 @@ import heapq
 
 
 class UCS(SearchAlgorithm):
-    """
-    Uniform Cost Search (UCS) algorithm implementation.
-
-    UCS is an uninformed search method that always expands the node with the lowest
-    cumulative cost from the start node.
-    """
+    
 
     def search(self, start, goals):
-        """
-        Perform Uniform Cost Search to find the lowest-cost path to any goal.
-
-        :param start: The starting node
-        :param goals: A set of goal nodes
-        :return: (goal_node, num_nodes_expanded, path_to_goal)
-        """
+       
         # Use a counter to break ties in chronological order when costs are equal
         insertion_counter = 0
 
-        # Priority queue to store (cost, insertion_order, node_id, path)
-        # - cost: primary sort criterion (lowest first)
-        # - insertion_order: secondary sort criterion (to maintain chronological order)
-        # - node_id: tertiary criterion (ascending node ID when cost & insertion order are equal)
+        # Priority queue to store (cost, insertion_order, node_id, path)       
         frontier = [(0, insertion_counter, start, [start])]
         heapq.heapify(frontier)
         insertion_counter += 1
@@ -65,7 +51,7 @@ class UCS(SearchAlgorithm):
                     new_path = current_path + [neighbor]
 
                     # Add to frontier with cost as primary sort key, insertion order as secondary,
-                    # and node ID as tertiary for correct tie-breaking
+                    # And node ID as tertiary for correct tie-breaking
                     heapq.heappush(frontier, (new_cost, insertion_counter, neighbor, new_path))
                     insertion_counter += 1  # Increment counter for stable tie-breaking
 
