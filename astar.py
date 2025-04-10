@@ -39,7 +39,7 @@ class AStar(SearchAlgorithm):
         # Track costs from start to each node
         g_scores = {start: 0}
         
-        # Create a unique ID for each queue entry to avoid comparing paths
+        # entry_id to ensure unique entries in the priority queue
         entry_id = 0
         
         # Priority queue with (f_score, entry_id, node_id, path)
