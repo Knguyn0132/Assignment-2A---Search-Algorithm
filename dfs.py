@@ -8,9 +8,7 @@ class DFS(SearchAlgorithm):
     def search(self, start, goals):
 
         stack = [(start, [start])]
-
-        visited = set()
-        
+        visited = set()        
         nodes_expanded = 0
 
         # Loop while there are still nodes in the stack

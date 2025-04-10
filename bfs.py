@@ -4,26 +4,29 @@ from collections import deque
 class BFS(SearchAlgorithm):
 
     def __init__(self, graph):
-        super().__init__(graph)
+        super().__init__(graph)  # Initialize the base class with the graph
 
     def search(self, start, goals):
-        queue = deque([(start, [start])]) #use queue instead of stack, deque is better than list for popping in front
-        visited = set()
-        nodes_expanded = 0
+        # Initialize the queue with the start node and its path
+        queue = deque([(start, [start])])
+        visited = set()  # Track visited nodes
+        nodes_expanded = 0  # Count the number of nodes expanded
 
         while queue:
+            # Get the next node and its path from the queue
             node, path = queue.popleft()
 
-            if node in visited:
+            if node in visited:  # Skip already visited nodes
                 continue
-            visited.add(node)
-            nodes_expanded += 1
+            visited.add(node)  # Mark the node as visited
+            nodes_expanded += 1  # Increment the expanded nodes count
 
-            if node in goals:
-                return node, nodes_expanded, path
+            if node in goals:  # Check if the goal is reached
+                return node, nodes_expanded, path  # Return the goal, count, and path
 
+            # Add neighbors to the queue with updated paths
             for neighbor, _ in sorted(self.graph.adjacency_list.get(node, [])):
-                queue.append((neighbor, path + [neighbor])) #doesn't matter the order of what node is being added to the queue first it will discover all anyway 
-                                                            #E.g: D and E or E and D
+                queue.append((neighbor, path + [neighbor]))
 
-        return None, nodes_expanded, []  # No solution found
+        # Return None if no solution is found
+        return None, nodes_expanded, []

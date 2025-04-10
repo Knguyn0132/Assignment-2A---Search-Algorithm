@@ -4,14 +4,11 @@ from search_algorithm import SearchAlgorithm
 
 class AStar(SearchAlgorithm):
     def __init__(self, graph):
-        """
-        Initialize the A* search with a graph.
-
-        """
+        # Initialize the A* search with the graph
         super().__init__(graph)
         self.nodes = graph.node_coordinates
         
-        # Create an adjacency list 
+        # Create an adjacency list from the graph
         self.adjacency_list = {}
         for from_node, neighbors in graph.adjacency_list.items():
             if from_node not in self.adjacency_list:
@@ -21,31 +18,26 @@ class AStar(SearchAlgorithm):
                 self.adjacency_list[from_node].append((to_node, cost))
     
     def euclidean_distance(self, node1, node2):
-        """
-        Calculate Euclidean distance between two nodes using their coordinates.
-        """
+        # Calculate Euclidean distance between two nodes using their coordinates
         x1, y1 = self.nodes[node1]
         x2, y2 = self.nodes[node2]
         return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
     
+    # Execute A* Search from the start node to any goal node
     def search(self, start, goals):
-        """
-        Execute A* Search from start node to any goal node.
-
-        """
-        # Convert goals to set for O(1) lookup
+        # Convert goals to a set for fast lookup
         goals = set(goals)
         
-        # Track costs from start to each node
+        # Track the cost from the start to each node
         g_scores = {start: 0}
         
-        # entry_id to ensure unique entries in the priority queue
+        # Unique entry ID for priority queue to avoid conflicts
         entry_id = 0
         
-        # Priority queue with (f_score, entry_id, node_id, path)
+        # Priority queue: (f_score, entry_id, node, path)
         open_list = []
         
-        # Calculate initial heuristic - use min distance to any goal
+        # Calculate the initial heuristic (min distance to any goal)
         initial_h = min([self.euclidean_distance(start, goal) for goal in goals])
         heapq.heappush(open_list, (initial_h, entry_id, start, [start]))
         entry_id += 1
@@ -55,42 +47,39 @@ class AStar(SearchAlgorithm):
         nodes_expanded = 0
         
         while open_list:
-            # Pop the node with lowest f_score
+            # Pop the node with the lowest f_score
             _, _, current, path = heapq.heappop(open_list)
             
-            # if the node is visited, skip 
-            if current in visited:
+            if current in visited:  # Skip already visited nodes
                 continue
             
-            # add current node to visited set and increment nodes expanded
+            # Mark the current node as visited and increment nodes expanded
             visited.add(current)
             nodes_expanded += 1
             
-            # check for special condition: if current is a goal
-            if current in goals:
-                return current, nodes_expanded, path
+            if current in goals:  # Check if the current node is a goal
+                return current, nodes_expanded, path  # Return goal, count, and path
             
-            # get all the neighbors of the current node in the adjacency list
+            # Explore neighbors of the current node
             neighbors = sorted(self.adjacency_list.get(current, []))
             for neighbor, cost in neighbors:
-                # calculate new g_score
+                # Calculate the new g_score
                 new_g_score = g_scores[current] + cost
                 
-                # only consider this path if it's better than any previous one
+                # Only consider this path if it's better than any previous one
                 if neighbor not in g_scores or new_g_score < g_scores[neighbor]:
-                    # Update g_score
-                    g_scores[neighbor] = new_g_score
+                    g_scores[neighbor] = new_g_score  # Update g_score
                     
-                    # Calculate h_score as minimum distance to any goal
+                    # Calculate h_score as the minimum distance to any goal
                     h_score = min([self.euclidean_distance(neighbor, goal) for goal in goals])
                     
-                    # Calculate f_score
+                    # Calculate f_score (g_score + h_score)
                     f_score = new_g_score + h_score
                   
-                    # Add to open list with unique entry ID
+                    # Add the neighbor to the priority queue with updated path
                     new_path = path + [neighbor]
                     heapq.heappush(open_list, (f_score, entry_id, neighbor, new_path))
                     entry_id += 1
         
-        # No path found
+        # Return None if no path to a goal is found
         return None, nodes_expanded, []
